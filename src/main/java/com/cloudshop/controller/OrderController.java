@@ -1,6 +1,8 @@
 package com.cloudshop.controller;
 
+import com.cloudshop.persistance.DTO.OrderDTO;
 import com.cloudshop.persistance.model.Order;
+import com.cloudshop.service.OrderFunctionClient;
 import com.cloudshop.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
 
     private final OrderService orderService;
+    private final OrderFunctionClient orderFunctionClient;
 
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, OrderFunctionClient orderFunctionClient) {
         this.orderService = orderService;
+        this.orderFunctionClient = orderFunctionClient;
     }
 
     // Show Order Form
@@ -30,7 +34,8 @@ public class OrderController {
     @PostMapping("/save")
     public String saveOrder(@ModelAttribute Order order) {
         order.setStatus("CREATED");
-        orderService.save(order);
+        OrderDTO orderDTO = orderService.saveAndGetOrderDto(order);
+        orderFunctionClient.triggerFunctionAppOrderProcessing(orderDTO);
         return "redirect:/orders/list";
     }
 

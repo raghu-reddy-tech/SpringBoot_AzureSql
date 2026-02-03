@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Azure Blob Images</title>
+    <style>
+        img {
+            width: 200px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Azure Blob Storage Images</h2>
+
+<div th:each="url : ${imageUrls}">
+    <img th:src="${url}" alt="Azure Image"/>
+</div>
+
+</body>
+</html>
