@@ -52,6 +52,13 @@
             <artifactId>applicationinsights-runtime-attach</artifactId>
             <version>3.5.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.microsoft.azure</groupId>
+            <artifactId>applicationinsights-spring-boot-starter</artifactId>
+            <version>2.6.3</version>
+            <scope>compile</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>com.azure</groupId>
